@@ -1,5 +1,6 @@
-import type { NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
+import { withSsrSession } from '../libs/server/withSsrSession';
 
 const Page: NextPage = () => {
   const router = useRouter();
@@ -12,5 +13,20 @@ const Page: NextPage = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSsrSession(async function ({ req }: NextPageContext) {
+  const idToken = req?.session.user?.idToken;
+  if (!idToken) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+});
 
 export default Page;

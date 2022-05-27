@@ -1,5 +1,6 @@
-import type { NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
+import { withSsrSession } from '../libs/server/withSsrSession';
 
 const Page: NextPage = () => {
   const router = useRouter();
