@@ -1,3 +1,4 @@
+import { amplifySignOut } from '@nitric/amplify-secure-js';
 import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler from '../../../libs/server/withHandler';
 import { withApiSession } from '../../../libs/server/withSsrSession';
@@ -12,6 +13,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
       req.session.destroy();
+      await amplifySignOut();
       return res.json({ ok: true });
   }
 }
