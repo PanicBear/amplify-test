@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    MY_ENV_VAR: process.env.MY_ENV_VAR,
+    COOKIE_PASSWORD: process.env.COOKIE_PASSWORD,
   },
 };
 
