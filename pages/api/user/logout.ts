@@ -1,4 +1,4 @@
-import { amplifySignOut } from '@nitric/amplify-secure-js';
+import { withApiSession } from 'libs/server/withSsrSession';
 import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler from '../../../libs/server/withHandler';
 
@@ -11,10 +11,9 @@ declare module 'iron-session' {
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
-      req.session.destroy();
-      await amplifySignOut();
+      await req.session.destroy();
       return res.json({ ok: true });
   }
 }
 
-export default withHandler({ methods: ['POST'], handler, isPrivate: false });
+export default withApiSession(withHandler({ methods: ['POST'], handler, isPrivate: false }));

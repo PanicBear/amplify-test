@@ -1,4 +1,4 @@
-import { sendAuthStorage } from '@nitric/amplify-secure-js';
+import { withApiSession } from 'libs/server/withSsrSession';
 import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler from '../../../libs/server/withHandler';
 
@@ -18,9 +18,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         idToken,
       };
       await req.session.save();
-      await sendAuthStorage();
       return res.json({ ok: true });
   }
 }
 
-export default withHandler({ methods: ['POST'], handler, isPrivate: false });
+export default withApiSession(withHandler({ methods: ['POST'], handler, isPrivate: false }));

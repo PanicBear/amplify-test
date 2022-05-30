@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler from '../../../libs/server/withHandler';
-import { withApiSession } from '../../../libs/server/withSsrSession';
 
 declare module 'iron-session' {
   interface IronSessionData {
