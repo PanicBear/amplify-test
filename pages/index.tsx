@@ -1,38 +1,19 @@
+import { useUserContext } from '@context/index';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import useSWR from 'swr';
-import useMutation from '../libs/client/useMutation';
 
-const Page: NextPage = () => {
+const Home: NextPage = () => {
   const router = useRouter();
-  const [signIn, { isLoading, data, error }] = useMutation<{ ok: boolean }>('/api/user/login');
-  const [dummyPost] = useMutation<{ ok: boolean }>('/api/dummy/post');
-  const { data: dummy } = useSWR<{ ok: boolean; msg: string }>('/api/dummy/get');
-
-  const onClick = ({}) => {
-    signIn({ idToken: 'test' });
-  };
+  const { user, isLoading } = useUserContext();
 
   useEffect(() => {
-    if (!isLoading && data?.ok) {
-      router.push('/main');
+    if (!isLoading) {
+      user ? router.push('/main') : router.push('/enter');
     }
-  });
+  }, []);
 
-  useEffect(() => {
-    console.log(dummy);
-  }, [dummy]);
-
-  return (
-    <div>
-      <h1>{router.pathname}</h1>
-      <button onClick={onClick}>login</button>
-      <button onClick={() => dummyPost({})}>post</button>
-      <button onClick={() => router.push('/main')}>main</button>
-      <button onClick={() => router.push('/user')}>user</button>
-    </div>
-  );
+  return <></>;
 };
 
-export default Page;
+export default Home;

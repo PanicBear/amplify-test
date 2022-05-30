@@ -1,3 +1,4 @@
+import { useUserContext } from '@context/index';
 import { useState } from 'react';
 
 interface UseMutationState<T> {
@@ -7,6 +8,7 @@ interface UseMutationState<T> {
 }
 
 export default function useMutation<T = any>(url: string): [(data: any) => void, UseMutationState<T>] {
+  const { user } = useUserContext();
   const [state, setState] = useState<UseMutationState<T>>({
     isLoading: false,
     data: undefined,
@@ -24,6 +26,7 @@ export default function useMutation<T = any>(url: string): [(data: any) => void,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${user}`,
       },
       body: JSON.stringify(data),
     })
