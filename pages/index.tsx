@@ -7,7 +7,8 @@ import useMutation from '../libs/client/useMutation';
 const Page: NextPage = () => {
   const router = useRouter();
   const [signIn, { isLoading, data, error }] = useMutation<{ ok: boolean }>('/api/user/login');
-  const { data: dummy } = useSWR<{ ok: boolean; msg: string }>('/api/dummy');
+  const [dummyPost] = useMutation<{ ok: boolean }>('/api/dummy/post');
+  const { data: dummy } = useSWR<{ ok: boolean; msg: string }>('/api/dummy/get');
 
   const onClick = ({}) => {
     signIn({ idToken: 'test' });
@@ -27,6 +28,7 @@ const Page: NextPage = () => {
     <div>
       <h1>{router.pathname}</h1>
       <button onClick={onClick}>login</button>
+      <button onClick={() => dummyPost({})}>login</button>
       <button onClick={() => router.push('/main')}>main</button>
       <button onClick={() => router.push('/user')}>user</button>
     </div>
