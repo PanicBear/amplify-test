@@ -28,7 +28,7 @@ const Page: NextPage = () => {
     <div>
       <h1>{router.pathname}</h1>
       <button onClick={onClick}>login</button>
-      <button onClick={() => dummyPost({})}>login</button>
+      <button onClick={() => dummyPost({})}>post</button>
       <button onClick={() => router.push('/main')}>main</button>
       <button onClick={() => router.push('/user')}>user</button>
     </div>
