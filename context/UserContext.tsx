@@ -25,6 +25,7 @@ export const useUserContext = () => useContext<UserContextType>(UserContext);
 
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [signIn] = useMutation('/api/user/login');
+  const [removeSession] = useMutation('/api/user/logout');
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -48,6 +49,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     signOut(auth);
+    removeSession({});
   };
 
   const contextValue = {

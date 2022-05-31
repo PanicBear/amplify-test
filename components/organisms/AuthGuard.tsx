@@ -10,16 +10,16 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
   const router = useRouter();
   const { user, isLoading } = useUserContext();
 
-  useEffect(() => {
-    if (!isLoading) {
-      if (user && router.asPath === '/enter') {
-        router.push('/main');
-      }
-      if (!user && router.asPath !== '/enter') {
-        router.push('/enter');
-      }
-    }
-  });
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     if (user && router.asPath === '/enter') {
+  //       router.push('/main');
+  //     }
+  //     if (!user && router.asPath !== '/enter') {
+  //       router.push('/enter');
+  //     }
+  //   }
+  // });
 
   return <>{isLoading ? <></> : children}</>;
 };
